@@ -23,5 +23,17 @@ app.get('/products', function(req, res){
     });
 });
 
+app.get('/products/:id', function(req, res){
+    console.log('Fetching Products...');
+    db.products.findOne({_id:mongojs.ObjectId(req.params.id)},function(err, doc){
+      if(err) {
+        res.send(err);
+      } else {
+        console.log('Sending Products...');
+        res.json(doc);
+      }
+    });
+});
+
 app.listen(3000);
 console.log("Server is Running on port 3000");
